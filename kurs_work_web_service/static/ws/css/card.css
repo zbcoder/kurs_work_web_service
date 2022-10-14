@@ -1,0 +1,20 @@
+.card{
+    height: 180px;
+    border: 1;
+    margin-top:5%;
+    margin-bottom:5%;
+    opacity: 1;
+    transition: all 350ms ease;
+}
+
+
+
+.card:hover {
+    cursor: pointer;
+	background: rgba(0,0,0,0);
+	color: #3a7999;
+	box-shadow: inset 0 0 0 3px  #79a4e8;
+	-webkit-transform: scale(0.98);
+    -ms-transform: scale(0.98);
+    transform: scale(0.98);
+}

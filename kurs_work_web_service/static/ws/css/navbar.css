@@ -1,0 +1,29 @@
+.styling{
+    background-color: #79a4e8;
+}
+
+.navbar-main-text{
+    font-size: 26px;
+    color: #232933;
+    hover: #121720;
+}
+
+.navbar-text{
+    font-size: 18px;
+    color: #232933;
+}
+.navbar-text:hover{
+    color: #000000;
+}
+
+.navbar-main-text:hover{
+    color: #000000;
+}
+
+.navbar-main-text:visited{
+    color: #232933;
+}
+
+.navbar-text:visited{
+    color: #232933;
+}

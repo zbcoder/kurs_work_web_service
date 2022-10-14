@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    {% load arifmetic_filter %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'ws/css/navbar.css' %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'ws/css/card.css' %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'ws/css/svg.css' %}" type="text/css">
+    <script src="{% static 'ws/js/create_table.js'%}"></script>
+</head>
+<body onload="create_table({{doctor_list|length}},{{doctor_list}})">
+<nav class="navbar navbar-expand-lg styling">
+    <div class="container">
+        <p class="navbar-brand navbar-main-text" href="#">Сервис для записи к врачу</p>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active navbar-text" aria-current="page" href="#">Csss</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link navbar-text" href="#">Link</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Dropdown
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled">Disabled</a>
+                </li>
+            </ul>
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="row" style="margin-top: 5%">
+        <div class="col-md-6">
+            <div class="top-cover center-block">
+                <h4> Список врачей </h4>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="input-group flex-nowrap">
+                <span for="doctors_info" class="input-group-text">Начните вводить ФИО врача</span>
+                <input id="doctors_info" type="text" class="form-control" style=""
+                       placeholder="Поиск...">
+            </div>
+        </div>
+    </div>
+
+    <table class="table" id="doctor_table">
+        <tbody>
+        {% for doctor in doctor_list %}
+        <tr>
+            <div class="card">
+                <div style="margin:3%">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4 class="text-md-left">
+                                {{doctor.doctor_surname}} {{doctor.doctor_name}} {{doctor.doctor_patricity}}
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            Врачебная специальность: {{doctor.doctor_speciality_name}}
+                        </div>
+                        <div class="col-md-4">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
