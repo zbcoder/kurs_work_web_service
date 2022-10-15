@@ -9,9 +9,8 @@
     <link rel="stylesheet" href="{% static 'ws/css/navbar.css' %}" type="text/css"/>
     <link rel="stylesheet" href="{% static 'ws/css/card.css' %}" type="text/css"/>
     <link rel="stylesheet" href="{% static 'ws/css/svg.css' %}" type="text/css">
-    <script src="{% static 'ws/js/create_table.js'%}"></script>
 </head>
-<body onload="create_table({{doctor_list|length}},{{doctor_list}})">
+<body>
 <nav class="navbar navbar-expand-lg styling">
     <div class="container">
         <p class="navbar-brand navbar-main-text" href="#">Сервис для записи к врачу</p>
@@ -56,45 +55,63 @@
     <div class="row" style="margin-top: 5%">
         <div class="col-md-6">
             <div class="top-cover center-block">
-                <h4> Список врачей </h4>
+                <h4> Список врачей нашей поликлинники </h4>
             </div>
         </div>
         <div class="col-md-6">
             <div class="input-group flex-nowrap">
-                <span for="doctors_info" class="input-group-text">Начните вводить ФИО врача</span>
-                <input id="doctors_info" type="text" class="form-control" style=""
+                <span for="doctors_info" class="input-group-text"
+                      style="background:#79a4e8;">Начните вводить ФИО врача</span>
+                <input id="doctors_info" onkeyup="filter_function()" type="search" class="form-control" style=""
                        placeholder="Поиск...">
             </div>
         </div>
     </div>
 
-    <table class="table" id="doctor_table">
+    <table class="table table-borderless" id="doctors_table">
         <tbody>
         {% for doctor in doctor_list %}
         <tr>
-            <div class="card">
-                <div style="margin:3%">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h4 class="text-md-left">
-                                {{doctor.doctor_surname}} {{doctor.doctor_name}} {{doctor.doctor_patricity}}
-                            </h4>
+            <td>
+                <div class="card" id="card{{forloop.counter0}}"
+                     onmouseover="show_btn({{forloop.counter0}})"
+                     onmouseout="hide_btn({{forloop.counter0}})">
+                    <div style="margin:3%">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <h4 class="text-md-left">
+                                    {{doctor.doctor_surname}} {{doctor.doctor_name}} {{doctor.doctor_patricity}}
+                                </h4>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn-card" id="2btn{{forloop.counter0}}"
+                                        onclick="show_details({{doctor.doctor_id}})">
+                                    Инфо
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            Врачебная специальность: {{doctor.doctor_speciality_name}}
+                        <div class="row">
+                            <div class="col-md-10">
+                                Врачебная специальность: {{doctor.doctor_speciality_name}}
+                            </div>
                         </div>
-                        <div class="col-md-4">
-
+                        <div class="row">
+                            <div class="col-md-10"></div>
+                            <div class="col-md-2">
+                                <button class="btn-card" id="1btn{{forloop.counter0}}"
+                                        onclick="create_str({{doctor.doctor_id}})">
+                                    Записаться
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </td>
         </tr>
         {% endfor %}
         </tbody>
     </table>
+    <script src="{% static 'ws/js/card_actions.js'%}"></script>
 </div>
 </body>
 </html>
