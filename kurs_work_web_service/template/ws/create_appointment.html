@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="{% static 'css/bootstrap.min.css'%}" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'ws/css/navbar.css' %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'ws/css/input.number.css' %}" type="text/css"/>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg styling">
+    <div class="container">
+        <p class="navbar-brand navbar-main-text" href="#">Просмотр информации о враче</p>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active navbar-text" aria-current="page" href="#">Csss</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link navbar-text" href="#">Link</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Dropdown
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled">Disabled</a>
+                </li>
+            </ul>
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <form>
+        <div class="client_info">
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="patient_name" class="form-label">Имя</label>
+                    <input id="patient_name" name="patient_name" type="text" class="form-control">
+                </div>
+                <div class="col-md-4">
+                    <label for="patient_patricity" class="form-label">Отчество</label>
+                    <input id="patient_patricity" name="patient_patricity" type="text" class="form-control">
+                </div>
+                <div class="col-md-4">
+                    <label for="patient_surname" class="form-label">Фамилия</label>
+                    <input id="patient_surname" name="patient_surname" type="text" class="form-control">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="patient_ser_passport" class="form-label">Серия паспорта (4 цифры)</label>
+                    <input id="patient_ser_passport" name="patient_ser_passport" class="form-control" type="text" maxlength="4" minlength="4">
+                </div>
+                <div class="col-md-3">
+                    <label for="patient_numb_passport" class="form-label">Номер паспорта (6 цифр)</label>
+                    <input type="number" id="patient_numb_passport" name="patient_numb_passport" class="form-control" type="number" maxlength="6"
+                           minlength="6">
+                </div>
+                <div class="col-md-6">
+                    <label for="patient_medical_policy" class="form-label">Медицинский полис (16 цифр)</label>
+                    <input type="number" id="patient_medical_policy" name="patient_medical_policy" class="form-control"min maxlength="16" minlength="16">
+                </div>
+            </div>
+        </div>
+        <input type="submit" class="btn btn-primary">
+    </form>
+</div>
+</body>
+</html>

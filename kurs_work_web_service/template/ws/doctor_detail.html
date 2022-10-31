@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     {% load static %}
-    {% load arifmetic_filter %}
+    {% load normal_date %}
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css"/>
@@ -51,6 +51,12 @@
     </div>
 </nav>
 <div class="container">
+    {% if doctor_detail.detail %}
+        <h3 style="text-align: center; margin-top:5%;">На этой странице нет информации</h3>
+        <center>
+            <a style="text-align: center;" href="../../doctors">Вернуться к просмотру докторов</a>
+        </center>
+    {% else %}
     <div class="row" style="margin-top:5%;">
         <div class="col-md-6">
             <!--Start form !-->
@@ -79,8 +85,20 @@
                 <div class="row">
                     <div class="col">
                         <label for="doctor_speciality" class="form-label" style="height:30px">Специальность</label>
-                        <select id="doctor_speciality" class="form-select">
+                        <select id="doctor_speciality" name="doctor_speciality" class="form-select">
                             <!--Options!-->
+                            {% for speciality in doctor_speciality %}
+                            {% if speciality.doctor_speciality_name == doctor_detail.doctor_speciality_name %}
+
+                            <option selected value="{{speciality.doctor_speciality_id}}">
+                                {{speciality.doctor_speciality_name}}
+                            </option>
+                            {% else %}
+                                <option value="{{speciality.doctor_speciality_id}}">
+                                    {{speciality.doctor_speciality_name}}
+                                </option>
+                            {% endif %}
+                            {% endfor %}
                         </select>
                     </div>
                 </div>
@@ -96,27 +114,22 @@
             <div class="row">
                 <table class="table">
                     <thead class="medical-thead">
-                    <th scope="col">Пациент</th>
                     <th scope="col">Дата последнего посещения</th>
+                    <th scope="col">Жалоба</th>
                     </thead>
                     <tbody>
+                    {% for doctor_appointment in doctor_detail.appointments %}
                     <tr>
-                        <td scope="row"></td>
-                        <td scope="row"></td>
+                        <td scope="row">{{doctor_appointment.date_of_admission|normal_date}}</td>
+                        <td scope="row">{{doctor_appointment.health_complaints}}</td>
                     </tr>
-                    <tr>
-                        <td scope="row"></td>
-                        <td scope="row"></td>
-                    </tr>
-                    <tr>
-                        <td scope="row"></td>
-                        <td scope="row"></td>
-                    </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+    {% endif %}
 </div>
 </body>
 </html>
