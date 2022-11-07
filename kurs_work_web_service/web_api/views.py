@@ -1,4 +1,5 @@
 from django.core.paginator import Paginator
+from django.db.models import Count
 from django.http import Http404
 from django.shortcuts import render
 from rest_framework import viewsets, status, settings, pagination
@@ -28,8 +29,7 @@ class DoctorsDetail(APIView):
         doctor = self.get_object(pk)
         serializer = DoctorViewSerializer(doctor)
         serializer_data = serializer.data
-        appointments = DoctorsAppointment.objects.filter(doctor=pk)
-        print(doctor, appointments.query)
+        appointments = DoctorsAppointment.objects.select_related('patient').filter(doctor=pk)
         appointments_serializer = AppointmentSerializerToGet(appointments, many=True)
         serializer_data.update({'appointments': appointments_serializer.data})
         return Response(serializer_data)
@@ -171,3 +171,13 @@ class TempClass(APIView):
         qs = Doctors.objects.get(doctor_id=pk)
         serializer = TempSerializer(qs)
         return Response(serializer.data)
+
+
+@api_view(['GET'])
+def get_count_doctor_speciality(request):
+    qs = Doctors.objects.all().select_related('doctor_speciality'). \
+        values('doctor_speciality__doctor_speciality_name'). \
+        annotate(dbcount=Count('doctor_speciality'))
+    dict = [entry for entry in qs]
+    print(dict)
+    return Response({'data': dict})

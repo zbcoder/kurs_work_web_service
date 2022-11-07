@@ -36,3 +36,12 @@ def show_doctor_detail(request, doctor_pk):
 
 def create_appointment(request):
     return render(request, 'ws/create_appointment.html', context={})
+
+
+def show_main_page(request):
+    doctors_speciality = requests.get(url+'doctors/speciality/')
+    doctors_count = requests.get(url+'get_doctors_count/')
+    return render(request, 'ws/main_page.html', context={
+        'doctor_speciality': doctors_speciality.json(),
+        'doctor_counts': doctors_count.json(),
+    })

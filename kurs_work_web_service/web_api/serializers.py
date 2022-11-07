@@ -44,8 +44,9 @@ class TempSerializer(serializers.Serializer):
 
 
 class AppointmentSerializerToGet(serializers.ModelSerializer):
-    patient = PatientSerializer(Patients.objects.all())
+    # patient = PatientSerializer(Patients.objects.all())
     class Meta:
         model = DoctorsAppointment
-        fields = '__all__'
+        depth = 1
+        fields = ['doctor_appointment_id', 'patient', 'health_complaints', 'date_of_admission']
 

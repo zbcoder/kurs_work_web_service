@@ -15,4 +15,5 @@ urlpatterns = [
     path(r'patients/', PatientsView.as_view()),
     path(r'patients/<int:pk>', PatientDetailView.as_view()),
     path(r'temp/<int:pk>', TempClass.as_view()),
+    path(r'get_doctors_count/', get_count_doctor_speciality)
 ]
