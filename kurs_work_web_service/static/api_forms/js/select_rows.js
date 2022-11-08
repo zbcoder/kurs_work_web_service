@@ -10,14 +10,34 @@ function select_row(row){
         {
             if (row.style.backgroundColor == 'rgb(236, 236, 236)'){
                 row.style.backgroundColor = '#ffffff'
-                document.getElementById('del_button').style.display='none'
-                document.getElementById('upd_button').style.display='none'
+                document.getElementById('del_button').style.animationName='myAnimation';
+                document.getElementById('del_button').style.animationDuration='250ms';
+                document.getElementById('del_button').style.animationFillMode='forwards';
+                document.getElementById('del_button').classList.add('disabled')
+
+                document.getElementById('upd_button').style.animationName='myAnimation';
+                document.getElementById('upd_button').style.animationDuration='250ms';
+                document.getElementById('upd_button').style.animationFillMode='forwards';
+                document.getElementById('upd_button').classList.add('disabled');
+
             }
             else{
                 document.getElementById('current_id').value = row.getElementsByTagName('td')[0].innerHTML
                 row.style.backgroundColor = 'rgb(236,236,236)'
-                document.getElementById('del_button').style.display='block'
-                document.getElementById('upd_button').style.display='block'
+                document.getElementById('del_button').classList.remove('disabled')
+                document.getElementById('upd_button').classList.remove('disabled')
+
+                document.getElementById('upd_button').style.display='block';
+                document.getElementById('del_button').style.display='block';
+
+                document.getElementById('del_button').style.animationName='reverseAnimation';
+                document.getElementById('del_button').style.animationDuration='250ms';
+                document.getElementById('del_button').style.animationFillMode='forwards';
+
+                document.getElementById('upd_button').style.animationName='reverseAnimation';
+                document.getElementById('upd_button').style.animationDuration='250ms';
+                document.getElementById('upd_button').style.animationFillMode='forwards';
+
             }
         }
     }
