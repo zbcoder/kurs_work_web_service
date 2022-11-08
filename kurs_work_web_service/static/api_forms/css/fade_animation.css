@@ -1,0 +1,32 @@
+@keyframes myAnimation{
+  0%{
+    opacity: 1;
+  }
+  50%{
+    opacity: 0.5;
+    transform: rotateX(0deg);
+  }
+  100%{
+    display: none;
+    opacity: 0;
+  }
+}
+
+@keyframes reverseAnimation{
+    0%{
+        display: block;
+        opacity: 0;
+    }
+    25%{
+        opacity: 0.25;
+    }
+    50%{
+        opacity:0.5;
+    }
+    75%{
+        opacity:0.75;
+    }
+    100%{
+        opacity:1;
+    }
+}
