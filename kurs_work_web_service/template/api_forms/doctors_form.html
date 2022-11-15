@@ -8,15 +8,16 @@
     
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <link href="{% static 'css/bootstrap.min.css'%}" type="text/css" rel="stylesheet">
-    <script src = "{% static 'api_forms/js/requests.js' %}"></script>
-    <script src = "{% static 'api_forms/js/select_rows.js' %}"></script>
-    <script src = "{% static 'api_forms/js/fade_table.js' %}"></script>
-    <link href="{% static 'api_forms/css/fade_animation.css' %}" type="text/css" rel="stylesheet">
-    <link href="{% static 'api_forms/css/not_found.css' %}" type="text/css" rel="stylesheet">
-    <link href="{% static 'api_forms/css/pagination-btns.css' %}" type="text/css" rel="stylesheet">
-    <link href="{% static 'api_forms/css/modal.css' %}" type="text/css" rel="stylesheet">
-    <script src = "{% static 'api_forms/js/add_page_size.js' %}"></script>
-    
+    <script src = "{% static 'api_forms/doctors/js/requests.js' %}"></script>
+    <script src = "{% static 'api_forms/doctors/js/select_rows.js' %}"></script>
+    <script src = "{% static 'api_forms/doctors/js/fade_table.js' %}"></script>
+    <link href="{% static 'api_forms/doctors/css/fade_animation.css' %}" type="text/css" rel="stylesheet">
+    <link href="{% static 'api_forms/doctors/css/not_found.css' %}" type="text/css" rel="stylesheet">
+    <link href="{% static 'api_forms/doctors/css/pagination-btns.css' %}" type="text/css" rel="stylesheet">
+    <link href="{% static 'css/modal.css' %}" type="text/css" rel="stylesheet">
+    <script src = "{% static 'api_forms/doctors/js/add_page_size.js' %}"></script>
+    <link href="{% static 'css/switch.css' %}" type="text/css" rel="stylesheet">
+    <link href="{% static 'css/navbar.css' %}" type="text/css" rel="stylesheet">
     <style>
         .center-caption{
             height:10em;
@@ -33,11 +34,29 @@
     </style>
 </head>
 <body onload="set_data({{specialities}})">
+<nav>
+    <ul class="ul-navbar">
+      <li class="link-navbar"><a class="link-navbar__link navbar-header">Doctor web service</a></li>
+      <li class="link-navbar active"><a href="#" class="link-navbar__link">Doctors</a></li>
+      <li class="link-navbar"><a href="../appointments" class="link-navbar__link">Appointments</a></li>
+      <li class="link-navbar"><a href="./patients" class="link-navbar__link">Patients</a></li>
+      <li class="link-navbar"><a href="./doctor_appointments" class="link-navbar__link">Doctor's appointments</a></li>
+      <li class="link-navbar"><a href="" class="link-navbar__link">About</a></li>
+      <li class="link-navbar link-navbar__link" style="float:right">
+        Dark theme
+        <label class="switch">
+        <input type="checkbox" onclick="console.log('checked')">
+        <span class="slider round"></span>
+      </label>
+    </li>
+    </ul>
+</nav>
+
 {% if page_content.results %}
 <form>
     {% csrf_token %}
 </form>
-<div class="container" id="main-container">
+<div class="container" id="main-container" style="margin-top: 90px;">
     <div class="row" id = "html_header">
         <div class="col" id="col_header">
             <h1 style="margin-right: 10px;">Doctors</h1>
@@ -61,16 +80,16 @@
     </div>
     <div class="row" style="margin-top:5px;">
         <div class="col">
-          <!-- <div class="table-container" style="margin-bottom:10px;"> -->
+          <div class="tableContainerDiv" style="margin-bottom: 20px;">
               <table class="table table-hover" id="doctor_table">
-                <thead style="">
+                <thead class="">
                 <th>Идентификатор доктора</th>
                 <th>Фамилия</th>
                 <th>Имя</th>
                 <th>Отчество</th>
                 <th>Специальность</th>
                 </thead>
-                <tbody style="">
+                <tbody>
                 {% for doctor in page_content.results%}
                 <tr onclick="select_row(this);">
                     <td>{{doctor.doctor_id}}</td>
@@ -80,11 +99,9 @@
                     <td>{{doctor.doctor_speciality.doctor_speciality_name}}</td>
                 </tr>
                 {% endfor %}
-              
                 </tbody>
-              
             </table>
-          <!-- </div> -->
+          </div>
         </div>
     </div>
     <div id="pagination-buttons">
@@ -139,7 +156,7 @@
   
 </section>
 <div class="overlay hidden"></div>
-<script src = "{% static 'api_forms/js/modal.js' %}"></script>
+<script src = "{% static 'api_forms/doctors/js/modal.js' %}"></script>
 {% else %}
     <div class="container">
             <div class="row" style="margin-top:10%;">

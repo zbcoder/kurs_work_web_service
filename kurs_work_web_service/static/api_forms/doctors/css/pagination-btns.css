@@ -17,3 +17,13 @@
     transition: all 0.4s ease;
 }
 
+.tableContainerDiv {
+    overflow: auto;
+    max-height: 30em;
+ }
+
+ thead {
+    position: sticky;
+    top: 0;
+    background: white;
+}

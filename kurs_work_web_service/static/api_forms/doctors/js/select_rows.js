@@ -4,7 +4,9 @@ function select_row(row){
 
     for(tr of tr_array){
         if (tr != row){
-            tr.style.backgroundColor = '#ffffff'
+            if(tr.style.baackgroundColor != 'rgb(51, 51, 51)'){
+                tr.style.backgroundColor = '#ffffff'
+            }
         }
         else
         {

@@ -1,0 +1,80 @@
+/* @media (prefers-color-scheme: dark){
+    body{
+        background: #222;
+        color: #f9f9f9
+    }
+    .btn{
+        background: #333;
+        color: #f9f9f9
+    }
+    .page-link{
+        background: #333;
+        color: #f9f9f9;
+    }
+    .table{
+        background-color: #f9f9f9;
+    }
+    .form-control{
+        background-color: #333;
+        border: .5px solid black
+    }
+    
+    .form-select{
+        background-color: #222;
+        border: .5px solid black;
+        color: #f9f9f9;
+    }
+
+    .input-group-text{
+        background-color: #222;
+        border: .5px solid black;
+        color: #f9f9f9;
+    }
+} */
+
+.ul-navbar {
+    position: fixed;
+    top:0;
+    width:100%;
+    margin-left: 5%;
+    margin-right: 5%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    z-index: 3;
+}
+
+.link-navbar {
+    float: left;
+}
+
+.link-navbar__link{
+    display: block;
+    color: #f9f9f9;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+.link-navbar .link-navbar__link:hover {
+    background-color: #111;
+    color: #f9f9f9;
+}
+
+.navbar-header{
+    left: 15%;
+    letter-spacing: .7px;
+    font-weight: bold;
+    pointer-events: none;
+    cursor: default;
+    text-decoration: none;
+    color: #f9f9f9f9;
+}
+
+.active{
+    background-color: #111;
+    color: #f9f9f9;
+}

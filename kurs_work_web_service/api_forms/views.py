@@ -25,3 +25,11 @@ def doctors(request):
         return render(request, context={'page_content': doctors_page.json(),
                                         'specialities': doctors_speciality.json()},
                       template_name='api_forms/doctors_form.html')
+
+
+def appointments(request):
+    return render(request, context={}, template_name='api_forms/appointments_form.html')
+
+
+def patients(request):
+    return render(request, context={}, template_name='api_forms/patients.html')
