@@ -12,6 +12,7 @@ from rest_framework.viewsets import ViewSet, ModelViewSet
 from django.conf import settings
 from .models import *
 from .serializers import *
+from json.decoder import JSONDecodeError
 
 
 class ExamplePagination(pagination.PageNumberPagination):
@@ -51,12 +52,41 @@ class DoctorsDetail(APIView):
 class DoctorsViewSet(viewsets.ModelViewSet):
     serializer_class = DoctorViewSerializer
     # pagination_class = ExamplePagination
-    queryset = Doctors.objects.all()
+    queryset = Doctors.objects.select_related('doctor_speciality').order_by('doctor_id').all()
+
+    def list(self, request, *args, **kwargs):
+        try:
+            data = request.GET['filter']
+        except:
+            data = False
+        if data:
+            queryset = Doctors.objects.select_related('doctor_speciality').filter(doctor_surname__startswith=data)
+            page = self.paginate_queryset(queryset)
+            if page is not None:
+                serializer = self.get_serializer(page, many=True)
+                return self.get_paginated_response(serializer.data)
+            serializer = self.get_serializer(queryset, many=True)
+            return Response(serializer.data)
+        else:
+            queryset = self.filter_queryset(self.get_queryset())
+            page = self.paginate_queryset(queryset)
+            if page is not None:
+                serializer = self.get_serializer(page, many=True)
+                return self.get_paginated_response(serializer.data)
+            serializer = self.get_serializer(queryset, many=True)
+            return Response(serializer.data)
+
+    def create(self, request, *args, **kwargs):
+        serializer = DoctorSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
 class DoctorView(APIView):
     def get(self, request, format=None):
-        doctors = Doctors.objects.all()
+        doctors = Doctors.objects.select_related('doctor_speciality__doctor_speciality_id').all()
         page = self.paginate_queryset(doctors)
         if page is not None:
             serializer = DoctorViewSerializer(doctors, many=True)

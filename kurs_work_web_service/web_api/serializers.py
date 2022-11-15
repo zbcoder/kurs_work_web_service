@@ -3,11 +3,10 @@ from .models import *
 
 
 class DoctorViewSerializer(serializers.ModelSerializer):
-    doctor_speciality_name = serializers.CharField(source='doctor_speciality.doctor_speciality_name', read_only=True)
-
     class Meta:
         model = Doctors
-        fields = ['doctor_id', 'doctor_name', 'doctor_surname', 'doctor_patricity', 'doctor_speciality_name']
+        depth = 1
+        fields = ['doctor_id', 'doctor_name', 'doctor_surname', 'doctor_patricity', 'doctor_speciality']
 
 
 class DoctorSerializer(serializers.ModelSerializer):

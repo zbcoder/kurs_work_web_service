@@ -14,7 +14,7 @@ def normal_date(value):
 
 def get_page(value):
     try:
-        page_numb = value.split('/').pop().split('?').pop().strip('page=')
+        page_numb = value.split('/').pop().split('?').pop().strip()
         if page_numb == '':
             page_numb = 1
     except:
