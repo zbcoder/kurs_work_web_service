@@ -15,5 +15,10 @@ urlpatterns = [
     path(r'patients/', PatientsView.as_view()),
     path(r'patients/<int:pk>', PatientDetailView.as_view()),
     path(r'temp/<int:pk>', TempClass.as_view()),
-    path(r'get_doctors_count/', get_count_doctor_speciality)
+    path(r'get_doctors_count/', get_count_doctor_speciality),
+    path(r'patients-list/', ListPatients.as_view(), name='patients-list'),        #CreateListAPIView get post with pagination
+    path(r'patients-list/<int:pk>/', ListViewPatient.as_view()),    #RetrieveUpdateDestroyAPIView get/put/delete requests
+    path(r'appointments-list/', ListAppointments.as_view(), name='appointment_list'),
+    path(r'appointments-list/post', CreateAppointments.as_view(), name='post_appointment'),
+    path(r'appointments-list/<int:pk>', ListViewAppointments.as_view())
 ]

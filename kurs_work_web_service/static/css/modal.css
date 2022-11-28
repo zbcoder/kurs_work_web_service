@@ -27,7 +27,26 @@
     border-radius: 15px;
     z-index: 4;
     margin: auto;
-    animation: modal_anim .5s ease;
+    animation: modal_anim .7s ease;
+  }
+
+  .modal-bottom {
+    display: block;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.4rem;
+    width: 100%;
+    padding: 1.3rem;
+    height: 450px;
+    top: 40;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    position: fixed;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    z-index: 4;
   }
 
   .modal-custom .flex {
@@ -35,8 +54,14 @@
     align-items: center;
     justify-content: space-between;
   }
+
+  .modal-bottom .flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
   
-  .modal-custom input {
+  .modal-bottom input {
     padding: 0.7rem 1rem;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -72,6 +97,7 @@
   }
   
   .btn-close {
+    display: inline;
     transform: translate(10px, -20px);
     padding: 0.5rem 0.7rem;
     background: #eee;
@@ -92,15 +118,23 @@
   }
 
   .hidden {
-
     display: none;
   }
 
   @keyframes modal_anim{
     0%{
-      scale: .3;
+      transform: translateY(10%); 
+    }
+    25%{
+      transform: translateY(-7.5%); 
+    }
+    50%{
+      transform: translateY(15%); 
+    }
+    75%{
+      transform: translateY(-5%);
     }
     100%{
-      scale: 1;
+      transform: translateY(0%);
     }
 }

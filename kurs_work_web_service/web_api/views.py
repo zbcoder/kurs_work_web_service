@@ -8,11 +8,14 @@ from rest_framework.pagination import PageNumberPagination, LimitOffsetPaginatio
 from rest_framework.response import Response
 from rest_framework.settings import api_settings
 from rest_framework.views import APIView
+from rest_framework.generics import ListAPIView, ListCreateAPIView, RetrieveUpdateDestroyAPIView, CreateAPIView
 from rest_framework.viewsets import ViewSet, ModelViewSet
 from django.conf import settings
 from .models import *
 from .serializers import *
 from json.decoder import JSONDecodeError
+from .paginators import *
+from rest_framework import filters
 
 
 class ExamplePagination(pagination.PageNumberPagination):
@@ -30,8 +33,10 @@ class DoctorsDetail(APIView):
         doctor = self.get_object(pk)
         serializer = DoctorViewSerializer(doctor)
         serializer_data = serializer.data
-        appointments = DoctorsAppointment.objects.select_related('patient').filter(doctor=pk)
-        appointments_serializer = AppointmentSerializerToGet(appointments, many=True)
+        appointments = DoctorsAppointment.objects.select_related(
+            'patient').filter(doctor=pk)
+        appointments_serializer = AppointmentSerializerToGet(
+            appointments, many=True)
         serializer_data.update({'appointments': appointments_serializer.data})
         return Response(serializer_data)
 
@@ -51,8 +56,8 @@ class DoctorsDetail(APIView):
 
 class DoctorsViewSet(viewsets.ModelViewSet):
     serializer_class = DoctorViewSerializer
-    # pagination_class = ExamplePagination
-    queryset = Doctors.objects.select_related('doctor_speciality').order_by('doctor_id').all()
+    queryset = Doctors.objects.select_related(
+        'doctor_speciality').order_by('doctor_id').all()
 
     def list(self, request, *args, **kwargs):
         try:
@@ -60,7 +65,8 @@ class DoctorsViewSet(viewsets.ModelViewSet):
         except:
             data = False
         if data:
-            queryset = Doctors.objects.select_related('doctor_speciality').filter(doctor_surname__startswith=data)
+            queryset = Doctors.objects.select_related(
+                'doctor_speciality').filter(doctor_surname__startswith=data)
             page = self.paginate_queryset(queryset)
             if page is not None:
                 serializer = self.get_serializer(page, many=True)
@@ -86,7 +92,8 @@ class DoctorsViewSet(viewsets.ModelViewSet):
 
 class DoctorView(APIView):
     def get(self, request, format=None):
-        doctors = Doctors.objects.select_related('doctor_speciality__doctor_speciality_id').all()
+        doctors = Doctors.objects.select_related(
+            'doctor_speciality__doctor_speciality_id').all()
         page = self.paginate_queryset(doctors)
         if page is not None:
             serializer = DoctorViewSerializer(doctors, many=True)
@@ -129,7 +136,8 @@ class AppointmentDetailView(APIView):
 
     def put(self, request, pk, format=None):
         appointment = self.get_object(pk)
-        serializer = DoctorAppointmentSerializer(appointment, data=request.data)
+        serializer = DoctorAppointmentSerializer(
+            appointment, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -143,9 +151,11 @@ class AppointmentDetailView(APIView):
 
 class AppointmentById(APIView):
     def get(self, request, doctor):
-        appointment_by_doctor_id = DoctorsAppointment.objects.filter(doctor=doctor)
+        appointment_by_doctor_id = DoctorsAppointment.objects.filter(
+            doctor=doctor)
         print(appointment_by_doctor_id.query)
-        serializer = DoctorAppointmentSerializer(appointment_by_doctor_id, many=True)
+        serializer = DoctorAppointmentSerializer(
+            appointment_by_doctor_id, many=True)
         return Response(serializer.data)
 
 
@@ -156,11 +166,13 @@ class DoctorsSpecialityView(APIView):
         return Response(serializer.data)
 
 
-class PatientsView(APIView):
+class PatientsView(APIView, DynamicPageNumberPagination):
     def get(self, request):
         patiens_qs = Patients.objects.all()
-        serializer = PatientSerializer(patiens_qs, many=True)
-        return Response(serializer.data)
+        news_patients = patiens_qs.get_news_items().all()
+        results = self.paginate_queryset(news_patients, request, view=self)
+        serializer = PatientSerializer(news_patients, many=True)
+        return self.get_paginated_response(serializer.data)
 
     def post(self, request, format=None):
         serializer = PatientSerializer(data=request.data)
@@ -201,6 +213,36 @@ class TempClass(APIView):
         qs = Doctors.objects.get(doctor_id=pk)
         serializer = TempSerializer(qs)
         return Response(serializer.data)
+
+
+class ListPatients(ListCreateAPIView):
+    queryset = Patients.objects.all().order_by('patient_id')
+    serializer_class = PatientSerializer
+    pagination_class = DynamicPageNumberPagination
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['patient_name', 'patient_surname']
+
+
+class ListViewPatient(RetrieveUpdateDestroyAPIView):
+    queryset = Patients.objects.all()
+    serializer_class = PatientSerializer
+
+
+class ListAppointments(ListAPIView):
+    queryset = DoctorsAppointment.objects.all().order_by('doctor_appointment_id')
+    serializer_class = DoctorAppointmentSerializer
+    pagination_class = DynamicPageNumberPagination
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['patient__patient_name', 'patient__patient_surname',
+                     'doctor__doctor_name', 'doctor__doctor_surname']
+
+
+class CreateAppointments(CreateAPIView):
+    serializer_class = DoctorAppointmentPPDSerializer
+
+class ListViewAppointments(RetrieveUpdateDestroyAPIView):
+    queryset = DoctorsAppointment.objects.all()
+    serializer_class = DoctorAppointmentPPDSerializer
 
 
 @api_view(['GET'])

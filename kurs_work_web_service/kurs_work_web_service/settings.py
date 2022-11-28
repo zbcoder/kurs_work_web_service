@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'web_api',
     'ws',
     'api_forms',
+    'django_auth'
 ]
 
 MIDDLEWARE = [

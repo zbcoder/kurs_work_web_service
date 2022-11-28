@@ -45,3 +45,7 @@ def show_main_page(request):
         'doctor_speciality': doctors_speciality.json(),
         'doctor_counts': doctors_count.json(),
     })
+
+
+def test_html(request):
+    return render(request, template_name='test.html')

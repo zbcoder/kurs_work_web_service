@@ -17,6 +17,8 @@ function select_row(row){
             else{
                 document.getElementById('current_id').value = row.getElementsByTagName('td')[0].innerHTML
                 row.style.cssText=`background-color: rgb(236, 236, 236);`
+                document.getElementById('del_button').classList.remove('fade');
+                document.getElementById('upd_button').classList.remove('fade');
                 document.getElementById('del_button').classList.remove('disabled')
                 document.getElementById('upd_button').classList.remove('disabled')
 
@@ -46,4 +48,7 @@ function off_buttons(){
     document.getElementById('upd_button').style.animationDuration='250ms';
     document.getElementById('upd_button').style.animationFillMode='forwards';
     document.getElementById('upd_button').classList.add('disabled');
+
+    document.getElementById('del_button').classList.add('fade');
+    document.getElementById('upd_button').classList.add('fade');
 }

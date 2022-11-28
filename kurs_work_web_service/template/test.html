@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .block{
+            position: relative;
+            width: 500px;
+            height: 350px;
+            background-color: #141414;
+            color: #f9f9f9;
+            opacity: 1;
+            transition: opacity 3s ease;
+        }
+
+        .button{
+            position: relative;
+            width:200px;
+            height:150px;
+            background-color: #f9f9f9;
+            border-radius: 15px;
+            color: #141414
+        }
+
+        .block.fade{
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+   <div class="block">
+        <div id="fade" class="button" onclick="fade()">Скрыть</div> 
+   </div>
+   <div id="unfade" class="button" onclick="unfade()">Раскрыть</div>
+   
+    <script>
+        function fade(){
+            document.querySelector('.block').classList.add('fade')
+            document.querySelector('#fade').classList.add('fade')
+            document.querySelector('#unfade').classList.remove('fade')
+        }
+
+        function unfade(){
+            document.querySelector('.block').classList.remove('fade')
+            document.querySelector('#fade').classList.remove('fade')
+            document.querySelector('#unfade').classList.add('fade')
+        }
+    </script>
+</body>
+
+
+</html>

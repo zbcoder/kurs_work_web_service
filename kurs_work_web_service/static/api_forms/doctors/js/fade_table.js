@@ -46,8 +46,6 @@ function fade_table(action){
             return;
         }
     }
-    
-    
 }
 
 function remove_table(){

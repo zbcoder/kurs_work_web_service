@@ -1,35 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <!-- need modal.js -->
-    {% load static %}
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="{% static 'css/switch.css' %}" type="text/css" rel="stylesheet">
-    <link href="{% static 'css/navbar.css' %}" type="text/css" rel="stylesheet">
-    <link href="{% static 'css/modal.css' %}" type="text/css" rel="stylesheet">
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <link href="{% static 'css/bootstrap.min.css'%}" type="text/css" rel="stylesheet">
+  <!-- need modal.js -->
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="{% static 'css/switch.css' %}" type="text/css" rel="stylesheet">
+  <link href="{% static 'css/navbar.css' %}" type="text/css" rel="stylesheet">
+  <link href="{% static 'css/modal.css' %}" type="text/css" rel="stylesheet">
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <link href="{% static 'css/bootstrap.min.css'%}" type="text/css" rel="stylesheet">
+  <link href="{% static 'api_forms/doctors/css/pagination-btns.css' %}" type="text/css" rel="stylesheet">
+  <script src="{%static 'js/add_page_size.js' %}"></script>
+  <!--Keep params-->
+  <script src="{% static 'js/select_rows.js' %}"></script>
 </head>
+
 <body>
-    <nav>
-        <ul class="ul-navbar">
-          <li class="link-navbar"><a class="link-navbar__link navbar-header">Doctor web service</a></li>
-          <li class="link-navbar"><a href="../doctors" class="link-navbar__link">Doctors</a></li>
-          <li class="link-navbar active"><a href="../appointments" class="link-navbar__link">Appointments</a></li>
-          <li class="link-navbar"><a href="./patients" class="link-navbar__link">Patients</a></li>
-          <li class="link-navbar"><a href="./doctor_appointments" class="link-navbar__link">Doctor's appointments</a></li>
-          <li class="link-navbar"><a href="" class="link-navbar__link">About</a></li>
-          <li class="link-navbar link-navbar__link" style="float:right">
-            Dark theme
-            <label class="switch">
-            <input type="checkbox" onclick="console.log('checked')">
-            <span class="slider round"></span>
-          </label>
-        </li>
-        </ul>
-    </nav>
+  <nav>
+    <ul class="ul-navbar">
+      <li class="link-navbar"><a class="link-navbar__link navbar-header">Doctor web service</a></li>
+      <li class="link-navbar"><a href={% url 'forms-doctors' %} class="link-navbar__link">Doctors</a></li>
+      <li class="link-navbar active"><a href="#" class="link-navbar__link">Appointments</a></li>
+      <li class="link-navbar"><a href={% url 'forms-patients' %} class="link-navbar__link">Patients</a></li>
+      <li class="link-navbar"><a href={% url 'forms-about' %} class="link-navbar__link">About</a></li>
+      <li class="link-navbar link-navbar__link" style="float:right">
+        Dark theme
+        <label class="switch">
+          <input type="checkbox" onclick="console.log('checked')">
+          <span class="slider round"></span>
+        </label>
+      </li>
+    </ul>
+  </nav>
+  <div class="container" id="main-container" style="margin-top: 90px;">
+    <div class="row" id="html_header">
+      <div class="col" id="col_header">
+        <h1 style="margin-right: 10px;">Appointments</h1>
+      </div>
+    </div>
+    <div class="row" id="navigaion_buttons">
+      <div class="col-md-7">
+        <div class="input-group">
+          <button class="btn btn-dark" id="create_button">New</button>
+          <button class="btn btn-outline-dark" id="upd_button"
+            style="display: none;">Update</button>
+          <button class="btn btn-danger" id="del_button" style="display: none;">Delete</button>
+          <input type="hidden" id="current_id" value="">
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="input-group">
+          <input type="text" class="form-control" id="filter_search" placeholder="input a appointment info"
+            name="filter">
+          <button class="btn btn-dark" onclick="add_parameter('filter', 'filter_search')">Search...</button>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="margin-top:5px;">
+      <div class="col">
+        <div class="tableContainerDiv" style="margin-bottom: 20px;">
+          <table class="table table-hover" id="appointment_table">
+            <thead class="">
+              <th>Appointment Id</th>
+              <th>Health complaints</th>
+              <th>Date of admission</th>
+              <th>Patient</th>
+              <th>Doctor</th>
+            </thead>
+            <tbody>
+              {% for appointment in appointments.results%}
+              <tr onclick="select_row(this);">
+                <td>{{appointment.doctor_appointment_id}}</td>
+                <td>{{appointment.health_complaints}}</td>
+                <td>{{appointment.date_of_admission}}</td>
+                <td><input type="hidden" value="{{appointment.patient.patient_id}}"> {{appointment.patient.patient_name}} {{appointment.patient.patient_patricity}}
+                  {{appointment.patient.patient_surname}}</td>
+                <td><input type="hidden" value="{{appointment.doctor.doctor_id}}">{{appointment.doctor.doctor_name}} {{appointment.doctor.doctor_patricity}}
+                  {{appointment.doctor.doctor_surname}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div id="pagination-buttons">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="input-group">
+            <input type="search" class="form-control" id="open_page" placeholder="input a needed page" name="page">
+            <button class="btn btn-dark" onclick="add_parameter('page', 'open_page')">Go to page!</button>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <ul class="pagination">
+            <li class="page-item" style="cursor:pointer"><a onclick="create_url('page', 1)"
+                class="page-link pagination-btn">&laquo;</a></li>
+            <li class="page-item" style="cursor:pointer"><a onclick="keep_params('{{appointments.links.previous}}')"
+                class="page-link">&lsaquo;</a></li>
+            <li class="page-item" style="cursor:pointer"><a class="page-link">Page {{appointments.current_page}} of
+                {{appointments.total_pages}}</a></li>
+            <li class="page-item" style="cursor:pointer"><a onclick="keep_params('{{appointments.links.next}}')"
+                class="page-link">&rsaquo;</a></li>
+            <li class="page-item" style="cursor:pointer"><a onclick="create_url('page','{{appointments.total_pages}}')"
+                class="page-link">&raquo;</a></li>
+          </ul>
+        </div>
+
+        <div class="col-md-5">
+          <div class="input-group mb-3">
+            <label class="input-group-text">Choise quantity of elements on this page</label>
+            <select name="page_size" id="page_size_select" class="form-select">
+              <option value="10">10</option>
+              <option value="20">20</option>
+              <option value="30">30</option>
+              <option value="40">40</option>
+              <option value="50">50</option>
+            </select>
+            <button class="btn btn-outline-dark"
+              onclick="add_parameter('page_size', 'page_size_select')">Refresh...</button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <section class="modal-custom hidden">
+    <div class="flex">
+      <h3>Do you really want to delete the record?</h3>
+      <button class="btn-close" id="btn-close"></button>
+    </div>
+    <div>
+      <p>Confirm your action below. Records deleted from tables cannot be returned in any way.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-dark" id="modal-cancel-button">Cancel</button>
+      <button class="btn btn-danger" id="modal-delete-button">Delete</button>
+    </div>
+  </section>
+  
+  <section class="modal-bottom hidden">
+    <div class="container">
+      <div class="flex">
+        <h3>Action for appointments</h3>
+        <button class="btn-close" id="modal-bottom-close-btn"></button>
+      </div>
+      <div>
+        <form id="appointments_form" action={% url 'post_appointment' %}>
+          {% csrf_token %}
+          <p>Change inputs and click on submit button</p>
+          <label for="health-complaints">Health complaints</label>
+          <input type="text" class="form-control" id="health-complaints" name="health_complaints">
+          <label for="admission_date">Date of admission</label>
+          <input id="admission_date" type="datetime-local" name="date_of_admission"
+            class="form-control">
+          <label for="patient">Patient identificator</label>
+          <input type="text" name="patient" id="patient" class="form-control md-6">
+          <label for="doctor">Doctor identificator</label>
+          <input type="text" name="doctor" id="doctor" class="form-control md-6">
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger" id="modal-bottom-cancel-button">Cancel</button>
+        <button class="btn btn-dark" id="modal-bottom-submit-button">Submit</button>
+        </form>
+      </div>
+    </div>
+  </section>
+  <div class="overlay hidden"></div>
+  <script src="{% static 'api_forms/appointments/js/modal-bottom.js' %}"></script>
+  <script src="{% static 'api_forms/appointments/js/modal.js' %}"></script>
 </body>
+
 </html>

@@ -20,5 +20,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api_root/', include('web_api.urls')),
     path('ws/', include('ws.urls')),
-    path('api_forms/', include('api_forms.urls'))
+    path('api_forms/', include('api_forms.urls')),
+    path('', include('django_auth.urls'))
 ]

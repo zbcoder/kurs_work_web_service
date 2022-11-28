@@ -19,6 +19,12 @@ class DoctorAppointmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = DoctorsAppointment
         fields = '__all__'
+        depth = 1
+
+class DoctorAppointmentPPDSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DoctorsAppointment
+        fields = '__all__'
 
 
 class DoctorsSpecialitySerializer(serializers.ModelSerializer):
@@ -48,4 +54,6 @@ class AppointmentSerializerToGet(serializers.ModelSerializer):
         model = DoctorsAppointment
         depth = 1
         fields = ['doctor_appointment_id', 'patient', 'health_complaints', 'date_of_admission']
+
+
 
