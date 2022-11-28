@@ -38,8 +38,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'web_api',
     'ws',
-    'api_forms',
-    'django_auth'
+    'api_forms'
 ]
 
 MIDDLEWARE = [

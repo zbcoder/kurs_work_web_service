@@ -6,5 +6,5 @@ urlpatterns = [
     path(r'appointments/', appointments, name='forms-appointments'),
     path(r'patients/', patients, name='forms-patients'),
     path(r'about/', about, name='forms-about'),
-    #path(r'login/', LoginUser.as_view(), name='login')
+    path(r'login/', auth, name='login')
 ]

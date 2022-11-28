@@ -61,3 +61,7 @@ def appointments(request):
 
 def about(request):
     return render(request, template_name='api_forms/about.html')
+
+
+def auth(request):
+    return render(request, template_name='api_forms/auth.html')

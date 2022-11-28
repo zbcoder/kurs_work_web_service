@@ -1,0 +1,81 @@
+:root   {
+    --index: calc(1vw + 1vh);
+}
+
+.auth-container{
+    position: relative;
+    display:block;
+    width: calc(var(--index)*13);
+    height: calc(var(--index)*15);
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:15%;
+    background-color: #fff;
+    border: .5px solid #141414; 
+    border-radius: calc(var(--index)*2);
+    font-size: calc(var(--index)*.65);
+    animation: create_animation .7s ease;
+}
+
+.auth-img{
+    position: relative;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    top: 5%;
+    border-radius: 50%;
+    background-color: #141414;
+    width:calc(var(--index)*3.5);
+    height:calc(var(--index)*3.5);
+}
+.auth-container input{
+    position: relative;
+    display: inline-block;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border: .5px solid #141414;
+    margin-top: 7.5%;
+    width: calc(var(--index)*10);
+    height: calc(var(--index)*1.5);
+}
+
+.auth-container button{
+    display: block;
+    margin-top: 5%;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    width: calc(var(--index)*5.5);
+    height: calc(var(--index)*2.25);
+    border-radius: calc(var(--index)*.5);
+    border: none;
+    background-color: #141414;
+    color: #f9f9f9;
+    font-size: calc(var(--index)*.75)
+}
+
+
+.auth-container button:hover{
+    background-color: #fff;
+    border: .5px solid #141414;
+    color: #141414;
+    transition: all .5s ease;
+}
+
+.auth-label{
+    position: relative;
+    top: calc(var(--index)*1);
+    margin-left:auto;
+    margin-right: auto;
+    width: calc(var(--index)*10);
+}
+
+@keyframes create_animation {
+    0%{
+        transform: translateY(-75%);
+    }
+    100%{
+        transform: translateY(0);
+    }
+}
