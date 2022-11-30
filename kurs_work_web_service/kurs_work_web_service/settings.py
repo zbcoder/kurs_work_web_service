@@ -79,7 +79,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'web_curs_work',
-        'USER': 'postgres',
+        'USER': 'doctor_admin',
         'PASSWORD': '03354240',
         'HOST': '94.190.71.245',
         'PORT': '5432'
