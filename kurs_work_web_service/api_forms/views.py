@@ -23,7 +23,8 @@ def doctors(request):
         doctors_page = requests.get(f'http://127.0.0.1:8000/api_root/doctors?page={str(page)}&page_size={str(page_size)}&filter={str(filter)}')
         print(doctors_page)
         return render(request, context={'page_content': doctors_page.json(),
-                                        'specialities': doctors_speciality.json()},
+                                        'specialities': doctors_speciality.json(),
+                                        'user': request.user},
                       template_name='api_forms/doctors_form.html')
 
 

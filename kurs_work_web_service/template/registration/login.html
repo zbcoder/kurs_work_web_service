@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'api_forms/auth/css/auth-form.css'%}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+    <title>Authentication</title>
+</head>
+
+<body>
+    {% block content %}
+
+    <form action="" method="POST">
+        <div class="auth-container">
+            <div class="auth-img"></div>
+            {% if form.errors %}
+            <div class="auth-label">
+                <small style="color:crimson;" class="text-center">Username or password incorrect. Please try again.</small>
+            </div>
+            {% endif %}
+
+            {% if next %}
+            {% if user.is_authenticated %}
+            <div class="auth-label">
+            <small style="color:crimson;" class="text-center">Your account doesn't have access to this page. To proceed,
+                please login with an account that has access.</small>
+            </div>
+            {% else %}
+            <div class="auth-label">
+                <small style="color:crimson;" class="text-center">Please login to see this page.</p>
+            </div>
+            {% endif %}
+            {% endif %}
+            <div class="auth-label">{{ form.username.label_tag }}</div>
+            {{ form.username }}
+            <div class="auth-label">{{ form.password.label_tag }}</div>
+            {{ form.password }}
+            <button class="auth-btn" type="submit">Login</button>
+            <button class="auth-btn btn-scnd">Registry</button>
+            <input type="hidden" name="next" value="{{ next }}">
+        </div>
+       
+        {% csrf_token %}
+    </form>
+    {% endblock %}
+</body>
+
+</html>

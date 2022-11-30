@@ -28,11 +28,13 @@
       <li class="link-navbar"><a href={% url 'forms-patients' %} class="link-navbar__link">Patients</a></li>
       <li class="link-navbar"><a href={% url 'forms-about' %} class="link-navbar__link">About</a></li>
       <li class="link-navbar link-navbar__link" style="float:right">
-        Dark theme
-        <label class="switch">
-          <input type="checkbox" onclick="console.log('checked')">
-          <span class="slider round"></span>
-        </label>
+        {% if user.is_authenticated %}
+        <div class="input-group">
+          <h5 class="fs-5" style="margin-right:15px;">{{user}}</h5>
+          <button onclick="window.location.href='{% url 'logout' %}'" class="btn btn-danger btn-sm">Logout</button>
+        </div>
+        {% else %}
+        {% endif %}
       </li>
     </ul>
   </nav>
@@ -173,6 +175,23 @@
   <div class="overlay hidden"></div>
   <script src="{% static 'api_forms/appointments/js/modal-bottom.js' %}"></script>
   <script src="{% static 'api_forms/appointments/js/modal.js' %}"></script>
+  {% if user.is_authenticated %}
+    <div class="overlay hidden"></div>
+{% else %}
+    <div class="overlay"></div>
+    <section class="modal-custom" style="height: 159px;">
+      <div class="flex">
+        <h3>Authorization error</h3>
+      </div>
+      <div>
+        <p>Before you start viewing, you need to log in</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-dark"><a href="{% url 'login' %}" class="btn-dark">Login</a></button>
+        
+      </div>
+    </section>
+{% endif %}
 </body>
 
 </html>

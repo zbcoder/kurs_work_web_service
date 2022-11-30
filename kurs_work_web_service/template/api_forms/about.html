@@ -29,11 +29,13 @@
             <li class="link-navbar"><a href={% url 'forms-patients' %} class="link-navbar__link">Patients</a></li>
             <li class="link-navbar active"><a href=# class="link-navbar__link">About</a></li>
             <li class="link-navbar link-navbar__link" style="float:right">
-                Dark theme
-                <label class="switch">
-                    <input type="checkbox" onclick="console.log('checked')">
-                    <span class="slider round"></span>
-                </label>
+                {% if user.is_authenticated %}
+                <div class="input-group">
+                <h5 class="fs-5" style="margin-right:15px;">{{user}}</h5>
+                <button onclick="window.location.href='{% url 'logout' %}'" class="btn btn-danger btn-sm">Logout</button>
+                </div>
+                {% else %}
+                {% endif %}
             </li>
         </ul>
     </nav>

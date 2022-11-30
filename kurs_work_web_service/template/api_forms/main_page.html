@@ -107,4 +107,21 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
     <script src="{%static 'ws/js/slides_action.js' %}"></script>
+    {% if user.is_authenticated %}
+    <div class="overlay hidden"></div>
+{% else %}
+    <div class="overlay"></div>
+    <section class="modal-custom" style="height: 159px;">
+      <div class="flex">
+        <h3>Authorization error</h3>
+      </div>
+      <div>
+        <p>Before you start viewing, you need to log in</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-dark"><a href="{% url 'login' %}" class="btn-dark">Login</a></button>
+        
+      </div>
+    </section>
+{% endif %}
 </body>

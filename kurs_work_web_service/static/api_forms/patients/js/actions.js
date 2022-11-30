@@ -12,6 +12,8 @@ function add_patient(action_url){
 
 function update_patient(action_url){
     hide_element('patient-view-content');
+    document.getElementById('add-btn').remove();
+    document.getElementById('del_button').remove();
     setTimeout(remove_element, 800, 'patient-view-content');
     setTimeout(create_form, 1000);
     const formElement = document.getElementById('post-form');
