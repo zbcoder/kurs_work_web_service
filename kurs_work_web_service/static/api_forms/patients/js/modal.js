@@ -7,11 +7,12 @@ const delButton = document.querySelector("#modal-delete-button");
 
 console.log(overlay, openModalBtn, closeModalBtn, delButton)
 
+const url = openModalBtn.value;
 
 const deleteRow = async function(){
   tr = get_selected_row_data()
   console.log(tr.children.item(0).innerHTML)
-  const response = await fetch('http://127.0.0.1:8000/api_root/patients-list/'+tr.children.item(0).innerHTML+'/', {
+  const response = await fetch(url+tr.children.item(0).innerHTML+'/', {
               method: 'DELETE',
               mode: 'cors',
               cache: 'no-cache',

@@ -26,7 +26,7 @@
     <link href="{% static 'api_forms/doctors/css/not_found.css'%}" type="text/css" , rel="stylesheet">
     <script src="{% static 'api_forms/patients/js/requests.js' %}"></script>
 
-    <title>Document</title>
+    <title>Patients</title>
     <style>
         .fading-content {
             opacity: 1;
@@ -95,7 +95,7 @@
                     </button>
                     <button class="btn btn-outline-dark fade" id="upd_button"
                         onclick="update_patient('{% url 'patients-list' %}')">Update</button>
-                    <button class="btn btn-danger fade" id="del_button">Delete</button>
+                    <button class="btn btn-danger fade" id="del_button" value="{% url 'patients-list' %}">Delete</button>
                 </div>
             </div>
             <div class="col-md-5">

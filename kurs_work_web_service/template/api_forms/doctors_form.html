@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head onload="var url = {% url 'doctors-api' %}">
     {% load static %}
     {% load normal_date %}
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Doctors</title>
     
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <link href="{% static 'css/bootstrap.min.css'%}" type="text/css" rel="stylesheet">
@@ -66,9 +66,9 @@
     <div class="row" id="navigaion_buttons">
         <div class="col-md-7">
             <div class="input-group">
-                <button class="btn btn-dark" id="create_button" onclick="fade_table('add');">New</button>
-                <button class="btn btn-outline-dark" onclick="fade_table('upd');" id = "upd_button" style="display: none;">Update</button>
-                <button class="btn btn-danger" id="del_button" style="display: none;">Delete</button>
+                <button class="btn btn-dark" id="create_button" onclick="fade_table('add', '{% url 'doctors-api' %}');">New</button>
+                <button class="btn btn-outline-dark" onclick="fade_table('upd', '{% url 'doctors-api' %}');" id = "upd_button" style="display: none;">Update</button>
+                <button class="btn btn-danger" id="del_button" style="display: none;" value="{% url 'doctors-api' %}">Delete</button>
                 <input type="hidden" id="current_id" value="">
             </div>
         </div>
@@ -154,6 +154,7 @@
   </div>
 </section>
 
+<div class="overlay hidden"></div>
 
 <script src = "{% static 'api_forms/doctors/js/modal.js' %}"></script>
 {% else %}
@@ -384,7 +385,6 @@
       </div>
       <div class="modal-footer">
         <button class="btn-dark"><a href="{% url 'login' %}" class="btn-dark">Login</a></button>
-        
       </div>
     </section>
 {% endif %}

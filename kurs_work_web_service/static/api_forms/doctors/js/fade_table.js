@@ -3,7 +3,7 @@ function set_data(data){
     specialities = data
 }
 
-function fade_table(action){
+function fade_table(action, url){
     console.log(action)
     if(action=='upd'){
         var parameters = get_selected_row_data();
@@ -37,11 +37,11 @@ function fade_table(action){
     setTimeout(remove_table, 900)
     switch(action){
         case 'add':{
-            setTimeout(function(){show_create_form(action)}, 1000)
+            setTimeout(function(){show_create_form(action, url)}, 1000)
             return;
         }
         case 'upd':{
-            setTimeout(function(){show_create_form(action)}, 1000);
+            setTimeout(function(){show_create_form(action, url)}, 1000);
             setTimeout(function(){fill_doctor_form(parameters.children)}, 1000);
             return;
         }
@@ -62,7 +62,7 @@ function add_animation(element_id){
     element_id.style=animationFillMode="forwards";
 }
 
-function show_create_form(action){
+function show_create_form(action, url){
     var header = document.createElement('h4')
     header.id = 'doctor_header'
     header.innerHTML = 'Post form for adding Doctor'
@@ -96,13 +96,13 @@ function show_create_form(action){
     switch(action){
         case 'add':{
             
-            submit_button.addEventListener('click', () => post(document.getElementById('doctor-form')))
+            submit_button.addEventListener('click', () => post(document.getElementById('doctor-form'), url))
             console.log('button event add add')
             return;
         }
         case 'upd':{
             
-            submit_button.addEventListener('click', () => put(document.getElementById('doctor-form')))
+            submit_button.addEventListener('click', () => put(document.getElementById('doctor-form'), url))
             console.log('button event add upd')
             return;
         }

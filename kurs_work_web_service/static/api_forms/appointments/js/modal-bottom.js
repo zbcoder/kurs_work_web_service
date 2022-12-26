@@ -7,6 +7,8 @@ const openModalBtn = document.querySelector("#create_button");
 const openUpdateModal = document.querySelector("#upd_button");
 var thisForm = document.querySelector("#appointments_form"); 
 
+const url = openModalBtn.value;
+
 function get_selected_row_data(){
     tr_arr = document.getElementsByTagName('tr')
     for (tr of tr_arr){
@@ -18,7 +20,7 @@ function get_selected_row_data(){
 const submit_action = async function(json){
     tr = get_selected_row_data()
     console.log(tr.children.item(0).innerHTML)
-    const response = await fetch('http://127.0.0.1:8000/api_root/appointments-list/'+tr.children.item(0).innerHTML, {
+    const response = await fetch(url+tr.children.item(0).innerHTML, {
                 method: 'PUT',
                 mode: 'cors',
                 cache: 'no-cache',

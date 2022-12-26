@@ -7,4 +7,5 @@ urlpatterns = [
     path(r'patients/', patients, name='forms-patients'),
     path(r'about/', about, name='forms-about'),
     path(r'', include('django.contrib.auth.urls')),
+    path(r'register/', register, name='register')
 ]

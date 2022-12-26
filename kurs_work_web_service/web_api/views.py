@@ -166,47 +166,6 @@ class DoctorsSpecialityView(APIView):
         return Response(serializer.data)
 
 
-class PatientsView(APIView, DynamicPageNumberPagination):
-    def get(self, request):
-        patiens_qs = Patients.objects.all()
-        news_patients = patiens_qs.get_news_items().all()
-        results = self.paginate_queryset(news_patients, request, view=self)
-        serializer = PatientSerializer(news_patients, many=True)
-        return self.get_paginated_response(serializer.data)
-
-    def post(self, request, format=None):
-        serializer = PatientSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-class PatientDetailView(APIView):
-    def get_object(self, pk):
-        try:
-            return Patients.objects.get(pk=pk)
-        except Patients.DoesNotExist:
-            raise Http404
-
-    def get(self, request, pk, format=None):
-        patient = self.get_object(pk)
-        serializer = PatientSerializer(patient)
-        return Response(serializer.data)
-
-    def put(self, request, pk, format=None):
-        patient = self.get_object(pk)
-        serializer = PatientSerializer(patient, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def delete(self, request, pk, format=None):
-        patient = self.get_object(pk)
-        patient.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
 
 class TempClass(APIView):
     def get(self, request, pk):

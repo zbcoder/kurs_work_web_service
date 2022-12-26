@@ -1,6 +1,4 @@
-url = 'http://127.0.0.1:8000/api_root/doctors/'
-
-async function post(form_id){
+async function post(form_id, url){
     json = generate_json(form_id, 4)
     const response = await fetch(url, {
     method: 'POST',
@@ -50,7 +48,7 @@ function generate_json(form_id, rows){
     return json;
 }
 
-async function put(form_id){
+async function put(form_id, url){
   json = generate_json(form_id, 5);
   new_url = url+json["doctor_id"];
   console.log(new_url)

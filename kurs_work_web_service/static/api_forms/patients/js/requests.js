@@ -9,7 +9,7 @@ async function put_function(url, json){
     }
     const response = await fetch(url+'/', request_options)
     .then((response)=>{
-        // location.reload();
+        location.reload();
         return response.json();
     })
     .then((data)=>{

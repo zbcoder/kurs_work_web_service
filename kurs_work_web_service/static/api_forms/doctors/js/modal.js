@@ -4,6 +4,7 @@ const openModalBtn = document.querySelector("#del_button");
 const closeModalBtn = document.querySelector(".btn-close");
 const closeModalBtn2 = document.querySelector("#modal-cancel-button");
 const delButton = document.querySelector("#modal-delete-button");
+const url = openModalBtn.value;
 
 console.log(overlay, openModalBtn, closeModalBtn, delButton)
 
@@ -11,7 +12,7 @@ console.log(overlay, openModalBtn, closeModalBtn, delButton)
 const deleteRow = async function(){
   tr = get_selected_row_data()
   console.log(tr.children.item(0).innerHTML)
-  const response = await fetch('http://127.0.0.1:8000/api_root/doctors/'+tr.children.item(0).innerHTML, {
+  const response = await fetch(url+tr.children.item(0).innerHTML, {
               method: 'DELETE',
               mode: 'cors',
               cache: 'no-cache',
